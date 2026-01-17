@@ -1,0 +1,15 @@
+{
+  "name": "chaiaurbackend",
+  "version": "1.0.0",
+  "description": "a starting of my backend journy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "backend",
+    "javascript"
+  ],
+  "author": "krish",
+  "license": "ISC"
+}
