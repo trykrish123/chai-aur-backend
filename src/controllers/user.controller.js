@@ -3,14 +3,15 @@ import { ApiError } from "../utils/ApiError.js"
 import { User } from "../models/user.models.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js"
 import { ApiRespones } from "../utils/ApiResponse.js"
-import { use } from "react"
+// import { use } from "react"
 
 
 const genrateAccessAndRefreshTokens = async(UserId) => {
     try {
-        const user = await User.findById(userId)
-        const accesToken = user.genrateAccessToken()
-        const refreshToken = user.genrateRefreshToken()
+        const user = await User.findById(UserId)
+        console.log(user);
+        const accesToken = await user.genrateAccessToken()
+        const refreshToken = await user.genrateRefreshToken()
 
         user.refreshToken = refreshToken
         await user.save({validateBeforesave: false })
@@ -99,11 +100,11 @@ const loginUser = asyncHandler (async (req, res) =>{
 
     const {email, username, password} = req.body
 
-    if(!username || !email ){
+    if(!username && !email ){
         throw new ApiError(400 , "username and email required ")
     }
 
-    const user = User.findOne({$or:[{email},{username}]})
+    const user = await User.findOne({$or:[{email},{username}]})
 
     if(!user){
         throw new ApiError(404, "user does not exist")
